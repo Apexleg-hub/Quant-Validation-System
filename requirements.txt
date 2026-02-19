@@ -1,0 +1,10 @@
+MetaTrader5
+pandas
+numpy
+matplotlib
+ploty
+sklearn
+polars
+ta
+fastapi 
+uvicorn

@@ -12,42 +12,11 @@ from backtest.performance import analyze_performance
 from ml.svm_filter import apply_svm_filter
 from ml.walk_forward import walk_forward_validation
 
+symbols = ["EURUSD","GBPUSD","NZDUSD"]
+
+for symbol in symbols:
+    run_model(symbol)
 
 
 
-def run_pipeline():
 
-    print("STEP 1: Downloading data...")
-    download_data()
-
-    print("STEP 2: Cleaning data...")
-    clean_data()
-
-    print("STEP 3: Adding features...")
-    add_features()
-
-    print("STEP 4: Generating signals...")
-    generate_signals()
-
-    print("STEP 5: Applying SVM filter...")
-    apply_svm_filter()
-    
-
-    print("STEP 6: Running backtest...")
-    run_backtest()
-
-    
-    print("STEP 7: Walk-forward validation...")
-    walk_forward_validation()
-
-    print("STEP 8: Performance analysis...")
-    analyze_performance()
-    
-
-
-
-    print("PIPELINE COMPLETE")
-
-
-if __name__ == "__main__":
-    run_pipeline()

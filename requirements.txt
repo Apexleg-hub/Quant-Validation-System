@@ -1,10 +1,10 @@
 MetaTrader5
 pandas
 numpy
-matplotlib
 ploty
-sklearn
+scikit-learn
 polars
-ta
 fastapi 
 uvicorn
+matplotlib
+flask

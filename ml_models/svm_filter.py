@@ -1,19 +1,21 @@
 import pandas as pd
+from processing.data_cleaner import clean_data, create_features, train_model, predict
 
 
-def _pick_col(df: pd.DataFrame, *candidates: str) -> str:
+
+def _pick_col(data: pd.DataFrame, *candidates: str) -> str:
     for name in candidates:
-        if name in df.columns:
+        if name in data.columns:
             return name
     raise KeyError(f"Missing required columns. Tried: {candidates}")
 
 
-def svm_trade_filter(df: pd.DataFrame) -> pd.DataFrame:
+def svm_trade_filter(data: pd.DataFrame) -> pd.DataFrame:
     """
     Lightweight trade filter.
     If ML outputs exist, use them; otherwise use an EMA trend proxy.
     """
-    out = df.copy()
+    out = data.copy()
     close_col = _pick_col(out, "close", "Close")
 
     if "Signal" not in out.columns:

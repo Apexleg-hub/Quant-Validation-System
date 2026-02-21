@@ -9,17 +9,10 @@
 <title>QUANT VALIDATION SYSTEM — Research Infrastructure</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script>
-
-fetch("http://127.0.0.1:8000/trades")
-
-.then(response => response.json())
-
-.then(data => {
-
-console.log(data)
-
-})
-
+fetch('/api/trades')
+  .then(response => response.json())
+  .then(data => { console.log('trades:', data); })
+  .catch(err => { console.warn('Failed to fetch /api/trades', err); });
 </script>
 
 <style>

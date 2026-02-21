@@ -3,8 +3,10 @@ pandas
 numpy
 ploty
 scikit-learn
-polars
 fastapi 
 uvicorn
 matplotlib
 flask
+python-dotenv
+streamlit
+arch

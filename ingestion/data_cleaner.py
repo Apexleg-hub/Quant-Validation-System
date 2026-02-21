@@ -10,7 +10,7 @@ from sklearn.linear_model import LogisticRegression
 
 # ── Column requirements ───────────────────────────────────────────────────────
 
-REQUIRED_COLS = ["open", "high", "low", "close"]
+REQUIRED_COLS = ["open", "high", "low", "close","volume"]
 
 # Features used for model training and prediction
 FEATURE_COLS = [
@@ -20,6 +20,50 @@ FEATURE_COLS = [
     "rsi_14",
     "volatility",   # rolling std of returns — added by this module
 ]
+
+# ── 0. Load & Clean Helper ────────────────────────────────────────────────────
+
+def load_and_clean_data(symbol: str, start_date, end_date) -> pd.DataFrame:
+    """
+    Download data from MT5 and clean it.
+    
+    Parameters
+    ----------
+    symbol : str
+        Trading symbol (e.g., "EURUSD")
+    start_date : datetime or str
+        Start date for data fetch
+    end_date : datetime or str
+        End date for data fetch
+    
+    Returns
+    -------
+    pd.DataFrame
+        Cleaned OHLCV data
+    """
+    try:
+        # Import here to avoid circular imports
+        from mt5_download import download_data
+        
+        # Download D1 timeframe data (adjust as needed)
+        raw_data = download_data(symbol, "D1")
+        
+        # Filter by date range if dataframe has time index
+        if hasattr(raw_data.index, 'date'):
+            mask = (raw_data.index.date >= pd.to_datetime(start_date).date()) & \
+                   (raw_data.index.date <= pd.to_datetime(end_date).date())
+            raw_data = raw_data[mask]
+        
+        # Clean the data
+        return clean_data(raw_data)
+    except ImportError:
+        # Fallback: if MT5 not available, raise clear error
+        raise RuntimeError(
+            f"Cannot download {symbol} data. Ensure MT5 is running and connected. "
+            "Or provide pre-downloaded data directly."
+        )
+    except Exception as e:
+        raise RuntimeError(f"Failed to load and clean data for {symbol}: {e}")
 
 # ── 1. Clean ──────────────────────────────────────────────────────────────────
 

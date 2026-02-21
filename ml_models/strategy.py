@@ -1,5 +1,5 @@
 import pandas as pd
-from processing.data_cleaner import clean_data, create_features, train_model, predict
+from ingestion.data_cleaner import clean_data, create_features, train_model, predict
 
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression, LinearRegression
